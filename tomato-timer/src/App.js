@@ -4,9 +4,6 @@ import './App.css';
 import Memo from './Memo';
 import * as firebase from 'firebase';
 
-
-
-
 class App extends Component {
   render() {
     return (

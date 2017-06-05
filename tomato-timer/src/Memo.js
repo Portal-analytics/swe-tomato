@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import * as firebase from 'firebase';
 
-
-
 class Memo extends Component {
 
     constructor(props) {
@@ -16,37 +14,29 @@ class Memo extends Component {
 
     handleMemoSubmit(e) {
         var updatedTaskList = this.state.tasks;
-
         updatedTaskList.push(this.state.memo);
 
         this.setState({
             memo: "",
             tasks: updatedTaskList
         })
-
-        console.log(updatedTaskList);
-
-        // this.sendData(updatedTaskList, e);
+       
+        this.sendData(updatedTaskList, e);
     }
 
-    // sendData(updatedTaskList, e) {
-    //     var tasksRef = firebase.database().ref('/');
-    //     tasksRef.set( {
-    //         tasks: updatedTaskList,
-    //     })
-
-    //     e.preventDefault();
-        
-    // }
-
-
+    sendData(updatedTaskList, e) {
+        var tasksRef = firebase.database().ref('/');
+        tasksRef.set( {
+            tasks: updatedTaskList,
+        })
+        e.preventDefault();
+    }
 
     handleMemoChange(e) {
         this.setState({
             memo: e.target.value,
         })
     }
-
 
     render() {
 
