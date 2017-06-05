@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedin: false,
+      loggedIn: false,
       name:"",
       email:"",
       id:""
@@ -20,27 +20,42 @@ class App extends Component {
   }
 
   handleLogIn(){
-    console.log(this.state.loggedin)
-    if(this.state.loggedin){
+    if(this.state.loggedIn){
       firebase.auth().signOut().then(() => {
         this.setState({
-          loggedin: false,
+          loggedIn: false,
           name:"",
           email:"",
           id:""
         });
       }).catch(function(error){
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+
+        
       })
     }
     else{
       firebase.auth().signInWithPopup(provider).then((result) => {
         this.setState({
-          loggedin:true,
+          loggedIn:true,
           name:result.user.displayName,
           email:result.user.email,
           id:result.user.uid
         })
       }).catch(function(error){
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+
+     
       });
     }
   }
@@ -55,7 +70,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <button onClick={() => this.handleLogIn(this.state.logInState)}>
-          {this.state.loggedin && <div>Log Out</div> }{!this.state.loggedin && <div>Log In</div> }
+          {this.state.loggedIn && <div>Log Out</div> }{!this.state.loggedIn && <div>Log In</div> }
         </button>
       </div>
     );
