@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import * as firebase from 'firebase';
 import {configured} from './firebase';
+import Memo from './Memo.js';
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -67,6 +68,7 @@ class App extends Component {
         </div>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
+          <Memo />
         </p>
         <button onClick={() => this.handleLogIn(this.state.logInState)}>
           {this.state.loggedIn && <div>Log Out</div> }{!this.state.loggedIn && <div>Log In</div> }
