@@ -4,6 +4,7 @@ import './App.css';
 import * as firebase from 'firebase';
 import {configured} from './firebase';
 import Memo from './Memo.js';
+import Timer from './Timer.js';
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -59,7 +60,12 @@ class App extends Component {
       });
     }
   }
+
+  saveTask(){
+    console.log("Timer Done");
+  }
   render() {
+    
     return (
       <div className="App">
         <div className="App-header">
@@ -68,11 +74,12 @@ class App extends Component {
         </div>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
-          <Memo />
+          <Memo info={this.state}/>
         </p>
         <button onClick={() => this.handleLogIn(this.state.logInState)}>
           {this.state.loggedIn && <div>Log Out</div> }{!this.state.loggedIn && <div>Log In</div> }
         </button>
+        <Timer seconds={300} onComplete={()=>this.saveTask()} />
       </div>
     );
   }
