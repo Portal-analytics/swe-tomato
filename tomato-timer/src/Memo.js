@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import * as firebase from 'firebase';
-
+import Tasks from './Tasks.js'
+var firebase = require('firebase');
+var database = firebase.database();
 class Memo extends Component {
 
     constructor(props) {
@@ -10,8 +11,26 @@ class Memo extends Component {
             memo: "",
             tasks: [],
         }
+        this.getTasks();
+        this.getTasks = this.getTasks.bind(this);
+        this.getAllMemos = this.getAllMemos(this);
     }
-
+    getTasks(){
+        var tasks = database.ref('/'+this.props.info.id);
+        tasks.once('value',function(snapshot){
+            getAllMemos(snapshot.val());
+        })
+    }
+    getAllMemos(data){
+        for(var key in data){
+            console.log(data[key])
+            var memos = data[key].tasks
+            this.setState, ({
+                ...this.state,
+                tasks:memos
+            })
+        }
+    }
     handleMemoSubmit(e) {
         var updatedTaskList = this.state.tasks;
         updatedTaskList.push(this.state.memo);
@@ -25,9 +44,13 @@ class Memo extends Component {
     }
 
     sendData(updatedTaskList, e) {
-        var tasksRef = firebase.database().ref('/');
+        var tasksRef = firebase.database().ref('/'+this.props.info.id);
         tasksRef.set( {
+            name:this.props.info.name,
+            id:this.props.info.id,
             tasks: updatedTaskList,
+            email:this.props.info.email
+
         })
         e.preventDefault();
     }
@@ -39,7 +62,7 @@ class Memo extends Component {
     }
 
     render() {
-
+      
         return (
             <div className="memo">
                 <div className="memo-description">
@@ -47,8 +70,9 @@ class Memo extends Component {
                 </div>
 
                 <div className="memo-text-field">
-                    <input type="text" className="memo-input" label="Write Memo Here" onChange={(e) => this.handleMemoChange(e)} />
+                    <input type="text" className="memo-input" label="Write Memo Here" value={this.state.memo} onChange={(e) => this.handleMemoChange(e)} />
                     <button className="memo-submit" onClick={(e) => this.handleMemoSubmit(e)}>Submit</button>
+                    <Tasks tasks={this.state.tasks}/>
                 </div>
 
             </div>
@@ -56,5 +80,20 @@ class Memo extends Component {
         )
     }
 }
+function getTasks(){
+    var tasks = firebase.database.ref('/'+this.props.info.id);
+    tasks.once('value',function(snapshot){
+        getAllMemos(snapshot.val());
+    })
+}
 
+function getAllMemos(data){
+    for(var key in data){
+        var memos = data[key].tasks
+        this.setState, ({
+            ...this.state,
+            tasks:memos
+        })
+    }
+}
 export default Memo;
