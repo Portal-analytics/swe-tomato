@@ -5,6 +5,7 @@
   "dependencies": {
     "firebase": "^4.1.1",
     "react": "^15.5.4",
+    "react-countdown-clock": "^1.1.0",
     "react-dom": "^15.5.4",
     "react-google-login-component": "^0.7.0"
   },
