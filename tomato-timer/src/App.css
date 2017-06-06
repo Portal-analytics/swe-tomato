@@ -51,17 +51,21 @@
 #timer {
   width: 49%;
   float: right;
+  position: relative;
+  z-index: 2;
+  top: 50px;
+  left: -150px;
+
 }
 
 #leaderboard {
-  margin-left: 100px;
-  margin-right: 25px;
+  position: relative;
+  z-index: 1;
+  bottom: -400px;
 }
 
 .container {
   text-align: justify;
-  margin-bottom: 350px;
-  background: yellow;
   width: 45%;
   float: right;
 }
