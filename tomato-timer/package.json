@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "firebase": "^4.1.1",
+    "i": "^0.3.5",
     "material-ui": "^0.18.1",
     "react": "^15.5.4",
     "react-countdown-clock": "^1.1.0",

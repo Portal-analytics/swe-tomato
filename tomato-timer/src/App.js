@@ -1,157 +1,69 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import * as firebase from 'firebase';
-import { configured } from './firebase';
+import {configured} from './firebase';
 import Memo from './Memo.js';
+import Timer from './Timer.js';
+import Tasks from './Tasks.js';
+import Login from './Login.js';
+import Main from './Main.js';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Card, CardActions, CardMedia, CardTitle } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
+import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card';
+//import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-
-var provider = new firebase.auth.GoogleAuthProvider();
+let database = firebase.database();
+let provider = new firebase.auth.GoogleAuthProvider();
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loggedIn: false,
-      name: "",
-      email: "",
-      id: "",
-      tasks:[],
-      memo:""
-    }
+      name: '',
+      email: '',
+      id: '',
+    };
     this.handleLogIn = this.handleLogIn.bind(this);
   }
- //Memo Functions
-      handleMemoSubmit = (e) => {
-        var updatedTaskList = this.state.tasks;
-        updatedTaskList.push(this.state.memo);
-
-        this.setState({
-          ...this.state,
-          memo: "",
-          tasks: updatedTaskList
-        })
-        this.handleMemoChange = this.handleMemoChange.bind(this);
-        this.handleMemoSubmit = this.handleMemoSubmit.bind(this);
-        this.sendData(updatedTaskList, e);
-      }
-
-      sendData = (updatedTaskList, e) => {
-        var tasksRef = firebase.database().ref('/'+this.state.id);
-        tasksRef.set({
-          name:this.state.name,
-          id:this.state.id,
-          email:this.state.email,
-          tasks: updatedTaskList,
-        })
-        e.preventDefault();
-      }
-
-      handleMemoChange = (e) => {
-        this.setState({
-          ...this.state,
-          memo: e.target.value,
-        })
-      }
-      
 
   //Google Authentication
 
   handleLogIn() {
-    if (this.state.loggedIn) {
-      firebase.auth().signOut().then(() => {
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
         this.setState({
-          loggedIn: false,
-          name: "",
-          email: "",
-          id: ""
-        });
-      }).catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-      })
-
-    }
-    else {
-      firebase.auth().signInWithPopup(provider).then((result) => {
-        this.setState({
+          ...this.state,
           loggedIn: true,
           name: result.user.displayName,
           email: result.user.email,
-          id: result.user.uid
-        })
-      }).catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
+          id: result.user.uid,
+        });
+      })
+      .catch(function(error) {
+        let errorCode = error.code;
+        let errorMessage = error.message;
         // The email of the user's account used.
-        var email = error.email;
+        let email = error.email;
         // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-
-
+        let credential = error.credential;
       });
-    }
   }
   render() {
-    if (this.state.loggedIn) {
+    if (!this.state.loggedIn) {
+      return <Login handleLogIn={this.handleLogIn} />;
+    } else {
       return (
-        <div className="App">
-          <div>
-            <MuiThemeProvider>
-              <div>
-                <Card>
-                  <CardMedia />
-                  <CardTitle title="Tomato Timer" subtitle="Login and submit a memo to get started." />
-                  <CardActions>
-                    <RaisedButton onClick={() => this.handleLogIn(this.state.logInState)} >
-                      {this.state.loggedIn && <div>Log Out</div>}{!this.state.loggedIn && <div>Log In</div>}
-                    </RaisedButton>
-                    <RaisedButton /*onClick={Add Leaderboard component here}*/>Leaderboard</RaisedButton>
-                  </CardActions>
-                </Card>
-              </div>
-            </MuiThemeProvider>
-          </div>
-          <Memo 
-          value={this.state.memo}
-          handleMemoSubmit={this.handleMemoSubmit}
-          handleMemoChange={this.handleMemoChange}
-          />
-        </div>
+        <Main
+          name={this.state.name}
+          email={this.state.email}
+          id={this.state.id}
+        />
       );
     }
-    else {
-      return (
-        <div className="App">
-          <div>
-            <MuiThemeProvider>
-              <div>
-                <Card>
-                  <CardMedia />
-                  <CardTitle title="Tomato Timer" subtitle="Login and submit a memo to get started." />
-                  <CardActions>
-                    <RaisedButton onClick={() => this.handleLogIn(this.state.logInState)} >
-                      {this.state.loggedIn && <div>Log Out</div>}{!this.state.loggedIn && <div>Log In</div>}
-                    </RaisedButton>
-                  </CardActions>
-                </Card>
-              </div>
-            </MuiThemeProvider>
-          </div>
-        </div>
-      )
-
-    }
-
   }
 }
 
 export default App;
-
