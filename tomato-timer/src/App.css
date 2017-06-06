@@ -31,12 +31,43 @@
   font-size: 32px;
 }
 
-.timer {
-  margin-right: 200px;
-  height: 250px;
-  width: 250px;
-}
-
 .timerButton {
   margin: auto;
+}
+
+.menu {
+  width: 45%;
+  float: left;
+  margin-top: 50px;
+  margin-left: 25px;
+}
+.memos {
+  width: 49%;
+  float: left;
+  margin-right: 50px;
+  margin-left: 25px;
+}
+
+#timer {
+  width: 49%;
+  float: right;
+}
+
+#leaderboard {
+  margin-left: 100px;
+  margin-right: 25px;
+}
+
+.container {
+  text-align: justify;
+  margin-bottom: 350px;
+  background: yellow;
+  width: 45%;
+  float: right;
+}
+
+#container div {
+  width: 150px;
+  height: 125px;
+  display: block;
 }

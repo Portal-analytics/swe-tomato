@@ -7,6 +7,7 @@ import Memo from './Memo.js';
 import Timer from './Timer.js';
 import Tasks from './Tasks.js';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card';
 //import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -29,9 +30,9 @@ export default class Login extends Component {
                 subtitle="Login and submit a memo to get started."
               />
               <CardActions>
-                <button onClick={() => this.props.handleLogIn()}>
+                <RaisedButton onClick={() => this.props.handleLogIn()}>
                   <div>Log In</div>
-                </button>
+                </RaisedButton>
               </CardActions>
             </Card>
           </div>

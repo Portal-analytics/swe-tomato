@@ -56,11 +56,13 @@ class App extends Component {
       return <Login handleLogIn={this.handleLogIn} />;
     } else {
       return (
-        <Main
-          name={this.state.name}
-          email={this.state.email}
-          id={this.state.id}
-        />
+        <MuiThemeProvider>
+          <Main
+            name={this.state.name}
+            email={this.state.email}
+            id={this.state.id}
+          />
+        </MuiThemeProvider>
       );
     }
   }
