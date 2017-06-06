@@ -23,11 +23,13 @@ export default class Login extends Component {
       <div className="App">
         <MuiThemeProvider>
           <div>
-            <Card>
+            <Card style={{backgroundColor: 'black', color: 'white'}}>
               <CardMedia />
               <CardTitle
                 title="Tomato Timer"
                 subtitle="Login and submit a memo to get started."
+                titleColor="white"
+                subtitleColor="white"
               />
               <CardActions>
                 <RaisedButton onClick={() => this.props.handleLogIn()}>

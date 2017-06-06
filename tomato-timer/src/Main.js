@@ -136,26 +136,28 @@ export default class Main extends Component {
       <div className="App">
 
         <div className="Header">
-          <Card>
+          <Card style={{backgroundColor: 'black', color: 'white'}}>
             <CardMedia />
             <CardTitle
               title="Tomato Timer"
               subtitle="Login and submit a memo to get started."
+              titleColor="white"
+              subtitleColor="white"
             />
             <CardActions />
           </Card>
         </div>
 
         <div className="menu">
-          <div className="memos">
+          {/*<div className="memos">
             <Tasks tasks={this.state.tasks} />
-          </div>
+          </div>*/}
           <Table>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow selectable={false}>
                 <TableHeaderColumn>
                   <TextField
-                    maxLength="50"
+                    maxLength="80"
                     multiLine={true}
                     fullWidth={true}
                     value={this.state.memo}
@@ -168,6 +170,9 @@ export default class Main extends Component {
                     {' '}Start Timer
                   </RaisedButton>
                 </TableHeaderColumn>
+              </TableRow>
+              <TableRow>
+                <Tasks tasks={this.state.tasks} />
               </TableRow>
             </TableHeader>
           </Table>

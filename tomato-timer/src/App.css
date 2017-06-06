@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background: none;
 }
 
 .App-logo {
@@ -29,6 +30,7 @@
 
 .Header {
   font-size: 32px;
+  background: none;
 }
 
 .timerButton {
@@ -36,7 +38,7 @@
 }
 
 .menu {
-  width: 45%;
+  width: 35%;
   float: left;
   margin-top: 50px;
   margin-left: 25px;
@@ -49,23 +51,30 @@
 }
 
 #timer {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin: auto;
-  text-align: center;
+  float: right;
+  position: relative;
+  z-index: 2;
+  right: -220px;
+  top: -700px;
+  margin: 49%;
 }
 
 #leaderboard {
-  margin-left: 100px;
-  margin-right: 25px;
-  margin-top: 340px;
+  position: relative;
+  z-index: 1;
+  top: -1080px;
+  right: -1180px;
+  width: 450px;
+  background: none;
 }
 
 .container {
-  text-align: justify;
-  margin-bottom: 350px;
-  background: yellow;
   width: 45%;
-  float: right;
   height: 100%;
+  display: block;
+}
+
+#card {
+  backgroundColor: black;
+  color: red;
 }

@@ -10,9 +10,9 @@ class Timer extends Component {
       <ReactCountdownClock
         seconds={this.props.seconds}
         paused={this.props.paused}
-        color="#000"
+        color="#990000"
         alpha={0.9}
-        size={300}
+        size={500}
         timeFormat="hms"
         onComplete={this.props.function}
       />
