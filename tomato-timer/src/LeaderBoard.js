@@ -8,7 +8,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import * as firebase from 'firebase';
-var database = firebase.database();
+let database = firebase.database();
 
 const data = [
   {name: 'Bill', score: 2},
@@ -55,8 +55,12 @@ export default class LeaderBoard extends React.Component {
       user.score = user.tasks.length;
       users.push(user);
     });
+    users = users.sort(sortNumber);
+    if (users.length > 10) {
+      users = users.slice(0, 10);
+    }
     this.setState({
-      data: users.sort(sortNumber),
+      data: users,
     });
   }
 

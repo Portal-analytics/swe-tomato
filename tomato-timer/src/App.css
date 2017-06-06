@@ -49,13 +49,16 @@
 }
 
 #timer {
-  width: 49%;
-  float: right;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin: auto;
+  text-align: center;
 }
 
 #leaderboard {
   margin-left: 100px;
   margin-right: 25px;
+  margin-top: 340px;
 }
 
 .container {
@@ -64,10 +67,5 @@
   background: yellow;
   width: 45%;
   float: right;
-}
-
-#container div {
-  width: 150px;
-  height: 125px;
-  display: block;
+  height: 100%;
 }

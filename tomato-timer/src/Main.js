@@ -45,15 +45,16 @@ export default class Main extends Component {
 
   //Memo Functions
   handleMemoSubmit = e => {
-    let updatedTaskList = this.state.tasks;
+    let updatedTaskList = [];
     updatedTaskList.push(this.state.memo);
-
+    let newlist = updatedTaskList.concat(this.state.tasks);
+    console.log(newlist);
     this.setState({
       ...this.state,
       memo: '',
-      tasks: updatedTaskList,
+      tasks: newlist,
     });
-    this.sendData(updatedTaskList, e);
+    this.sendData(newlist, e);
   };
 
   sendData = (updatedTaskList, e) => {
@@ -101,6 +102,7 @@ export default class Main extends Component {
   }
 
   onFiveEnd() {
+    this.handleMemoSubmit();
     this.setState({
       ...this.state,
       timeron: false,
@@ -109,7 +111,6 @@ export default class Main extends Component {
 
   startTimer() {
     if (!this.state.timeron && this.state.memo) {
-      this.handleMemoSubmit();
       this.setState({
         ...this.state,
         timeron: true,
@@ -122,12 +123,14 @@ export default class Main extends Component {
     let timer;
     if (this.state.timeron) {
       if (this.state.timertwofive) {
-        timer = <Timer seconds={4} function={() => this.onTwentyFiveEnd()} />;
+        timer = (
+          <Timer seconds={1500} function={() => this.onTwentyFiveEnd()} />
+        );
       } else {
-        timer = <Timer seconds={2} function={() => this.onFiveEnd()} />;
+        timer = <Timer seconds={300} function={() => this.onFiveEnd()} />;
       }
     } else {
-      timer = <Timer seconds={4} paused={true} function={() => {}} />;
+      timer = <Timer seconds={1500} paused={true} function={() => {}} />;
     }
     return (
       <div className="App">
@@ -152,6 +155,9 @@ export default class Main extends Component {
               <TableRow selectable={false}>
                 <TableHeaderColumn>
                   <TextField
+                    maxLength="50"
+                    multiLine={true}
+                    fullWidth={true}
                     value={this.state.memo}
                     hintText="Enter Memo Here"
                     onChange={this.handleMemoChange}
